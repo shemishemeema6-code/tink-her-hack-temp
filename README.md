@@ -13,7 +13,7 @@
 - Member 2: [Amlu.T] - [PPTM Arts And Science College Cherur]
 
 ### Hosted Project Link
-[shemishemeema6-code.github.io]
+[[shemishemeema6-code.github.io](https://shemishemeema6-code.github.io/tink-her-hack-temp/)]
 
 ### Project Description
 [a local bus tracker with all nececcery informations]
