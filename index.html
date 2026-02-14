@@ -1,149 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bus Tracker - Home</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Buddy - Never Miss Your Stop</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Lucide Icons (using Unpkg for simplicity or just SVGs if preferred. FontAwesome is standard too) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <!-- Header/Navigation -->
-  <header class="header">
-    <div class="header-content">
-      <h1 class="logo">🚌 Bus Tracker</h1>
-      <nav class="navbar">
-        <ul class="nav-links">
-          <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="tracking.html">Track Bus</a></li>
-          <li><a href="routes.html">Routes</a></li>
-          <li><a href="help.html">Help</a></li>
-        </ul>
-      </nav>
+
+    <div id="app">
+        
+        <!-- LAYOUT 1: LANDING -->
+        <div id="landing" class="layout active">
+            <div class="logo-area">
+                <div class="app-logo">
+                    <i class="fa-solid fa-bus"></i>
+                </div>
+                <h1>Bus Buddy</h1>
+                <p>Never Miss Your Stop</p>
+            </div>
+            
+            <button class="btn-primary" onclick="startApp()">Track Now</button>
+            <p class="subtext" style="margin-top: 16px;">Your trusted travel companion</p>
+        </div>
+
+        <!-- LAYOUT 2: JOURNEY START -->
+        <div id="search" class="layout">
+            <h2>Let's Begin Our Journey</h2>
+            <p style="margin-bottom: 24px;">Where do you want to go today?</p>
+            
+            <div class="input-group">
+                <label class="input-label">Travelling From</label>
+                <input type="text" class="input-field" placeholder="Current Location" value="Central Station">
+            </div>
+
+            <div class="swap-btn">
+                <i class="fa-solid fa-arrow-down-up"></i>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">Going To</label>
+                <input type="text" class="input-field" placeholder="Enter Destination" value="North Avenue">
+            </div>
+
+            <button class="btn-primary" onclick="searchBuses()">Find Buses</button>
+        </div>
+
+        <!-- LAYOUT 3: FIND BUSES -->
+        <div id="results" class="layout">
+            <div style="display:flex; align-items:center; margin-bottom: 24px;">
+                <button class="btn-icon" onclick="showLayout(2)"><i class="fa-solid fa-arrow-left"></i></button>
+                <h2 style="margin:0; margin-left: 8px;">Available Buses</h2>
+            </div>
+            
+            <div class="bus-list">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+
+        <!-- LAYOUT 4: BUS STATUS -->
+        <div id="details" class="layout">
+            <div style="display:flex; align-items:center; margin-bottom: 24px;">
+                <button class="btn-icon" onclick="showLayout(3)"><i class="fa-solid fa-arrow-left"></i></button>
+                <h2 style="margin:0; margin-left: 8px;">Bus Details</h2>
+            </div>
+
+            <div class="card" style="margin-bottom: 24px;">
+                <h1 id="detail-name" style="font-size: 22px;">Bus Name</h1>
+                <p id="detail-time">00:00 - 00:00</p>
+            </div>
+
+            <div class="crowd-indicator">
+                <div id="detail-crowd-dot" class="status-dot red"></div>
+                <span id="detail-crowd-text" style="font-weight: 500;">High Crowd</span>
+            </div>
+
+            <div class="route-details" style="background: white; border-radius: 20px; padding: 20px; box-shadow: var(--shadow-sm);">
+                <div class="detail-row">
+                    <span class="detail-label">Current Location</span>
+                    <span class="detail-value">Downtown Stop</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Est. Fare</span>
+                    <span id="detail-fare" class="detail-value">$0.00</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Distance</span>
+                    <span id="detail-dist" class="detail-value">0 km</span>
+                </div>
+                <!-- Placeholder Image for Stop -->
+                <div style="margin-top: 16px; height: 120px; background: #f1f5f9; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                    <i class="fa-solid fa-map-location-dot" style="font-size: 40px; color: #cbd5e1;"></i>
+                </div>
+            </div>
+
+            <button class="btn-primary" onclick="startJourney()">Start Journey</button>
+        </div>
+
+        <!-- LAYOUT 5: LIVE TRACKING -->
+        <div id="tracking" class="layout">
+            <div style="display:flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h2 style="margin:0;">Happy Journey!</h2>
+                    <p id="track-bus-name">Bus Name</p>
+                </div>
+                <button class="emergency-btn" onclick="emergencyCall()">
+                    <i class="fa-solid fa-phone"></i>
+                </button>
+            </div>
+
+            <div class="map-placeholder">
+                <div class="bus-route-animation"></div>
+                <div class="moving-bus-icon">
+                    <i class="fa-solid fa-bus"></i>
+                </div>
+            </div>
+
+            <div class="card">
+                <div style="display:flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <span class="input-label">Next Stop</span>
+                        <h3>City Mall</h3>
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="input-label">Time</span>
+                        <h3 id="current-time">10:00 AM</h3>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-primary" onclick="finishJourney()" style="background: var(--success);">Arrive at Destination</button>
+        </div>
+
+        <!-- LAYOUT 6: JOURNEY COMPLETE -->
+        <div id="success" class="layout">
+            <div class="success-icon">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h1>Reached Safely</h1>
+            <p>Have a Nice Day!</p>
+            
+            <div style="margin-top: 40px; width: 100%;">
+                <button class="btn-primary" onclick="resetApp()">Book Another Trip</button>
+            </div>
+        </div>
+
     </div>
-  </header>
 
-  <!-- Main Container -->
-  <div class="container">
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero-content">
-        <h2>Never Miss Your Bus Again</h2>
-        <p>Real-time bus tracking and route information at your fingertips</p>
-        <a href="tracking.html" class="btn btn-primary btn-lg">Start Tracking Now</a>
-      </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features">
-      <h2>Why Choose Bus Tracker?</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">📍</div>
-          <h3>Real-Time Location</h3>
-          <p>Track your bus location in real-time with live updates every 10 seconds</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">⏱️</div>
-          <h3>Accurate ETA</h3>
-          <p>Get precise arrival time estimates based on current traffic conditions</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">🛣️</div>
-          <h3>Route Details</h3>
-          <p>View complete route information with all stops and timings</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">👤</div>
-          <h3>Driver Info</h3>
-          <p>Know your driver details and vehicle information for safety</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">📱</div>
-          <h3>Mobile Friendly</h3>
-          <p>Fully responsive design works perfectly on all devices</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">🔔</div>
-          <h3>Notifications</h3>
-          <p>Get alerts for upcoming stops and service updates</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Quick Stats Section -->
-    <section class="stats">
-      <div class="stat-item">
-        <h3>45+</h3>
-        <p>Active Routes</p>
-      </div>
-      <div class="stat-item">
-        <h3>200+</h3>
-        <p>Buses Running</p>
-      </div>
-      <div class="stat-item">
-        <h3>50K+</h3>
-        <p>Daily Users</p>
-      </div>
-      <div class="stat-item">
-        <h3>99.5%</h3>
-        <p>Uptime</p>
-      </div>
-    </section>
-
-    <!-- Call to Action -->
-    <section class="cta">
-      <div class="card">
-        <h2>Ready to Track Your Bus?</h2>
-        <p>Choose your route and get started with real-time bus tracking</p>
-        <a href="tracking.html" class="btn btn-primary">Go to Tracker</a>
-      </div>
-    </section>
-  </div>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-section">
-        <h4>About</h4>
-        <ul>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">Careers</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Support</h4>
-        <ul>
-          <li><a href="#">Help Center</a></li>
-          <li><a href="#">Contact Us</a></li>
-          <li><a href="#">FAQ</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Cookie Policy</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Follow</h4>
-        <ul>
-          <li><a href="#">Facebook</a></li>
-          <li><a href="#">Twitter</a></li>
-          <li><a href="#">Instagram</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Bus Tracking System. All rights reserved.</p>
-    </div>
-  </footer>
+    <script src="script.js"></script>
 </body>
 </html>
