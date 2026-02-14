@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bus Routes</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header/Navigation -->
+  <header class="header">
+    <div class="header-content">
+      <h1 class="logo">🚌 Bus Tracker</h1>
+      <nav class="navbar">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="tracking.html">Track Bus</a></li>
+          <li><a href="routes.html" class="active">Routes</a></li>
+          <li><a href="help.html">Help</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Routes Filter Section -->
+    <section class="search-section">
+      <div class="card">
+        <h2>Search Routes</h2>
+        <div class="form-group">
+          <label for="routeSearch">Search by Route Number or Name:</label>
+          <input type="text" id="routeSearch" placeholder="Enter route number (e.g., 105, A10)" class="input-field" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fromStop">From Stop:</label>
+            <select id="fromStop" class="input-field">
+              <option value="">Select starting point</option>
+              <option value="central-station">Central Station</option>
+              <option value="main-plaza">Main Plaza</option>
+              <option value="city-center">City Center</option>
+              <option value="north-terminal">North Terminal</option>
+              <option value="airport">Airport</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="toStop">To Stop:</label>
+            <select id="toStop" class="input-field">
+              <option value="">Select destination</option>
+              <option value="central-station">Central Station</option>
+              <option value="main-plaza">Main Plaza</option>
+              <option value="city-center">City Center</option>
+              <option value="north-terminal">North Terminal</option>
+              <option value="airport">Airport</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="filterRoutes()">Search Routes</button>
+      </div>
+    </section>
+
+    <!-- Routes List Section -->
+    <section class="routes-list">
+      <!-- Route 105 -->
+      <div class="card route-card">
+        <div class="route-header">
+          <h2>Route #105 - City Express</h2>
+          <span class="route-status active">Active</span>
+        </div>
+        <div class="route-content">
+          <div class="route-info-grid">
+            <div class="info-item">
+              <label>Buses Operating:</label>
+              <p>BUS-A10, BUS-A12, BUS-A15</p>
+            </div>
+            <div class="info-item">
+              <label>Frequency:</label>
+              <p>Every 15 minutes</p>
+            </div>
+            <div class="info-item">
+              <label>Total Distance:</label>
+              <p>28.5 km</p>
+            </div>
+            <div class="info-item">
+              <label>Estimated Time:</label>
+              <p>45 minutes</p>
+            </div>
+          </div>
+
+          <div class="stops-section">
+            <h3>All Stops</h3>
+            <ol class="stops-timeline">
+              <li>
+                <div class="stop-circle"></div>
+                <div class="stop-details">
+                  <span class="stop-name">Central Station</span>
+                  <span class="stop-time">Start Point</span>
+                </div>
+              </li>
+              <li>
+                <div class="stop-circle stop-intermediate"></div>
+                <div class="stop-details">
+                  <span class="stop-name">Main Plaza</span>
+                  <span class="stop-time">8 km | 12 mins</span>
+                </div>
+              </li>
+              <li>
+                <div class="stop-circle stop-intermediate"></div>
+                <div class="stop-details">
+                  <span class="stop-name">City Center</span>
+                  <span class="stop-time">16.5 km | 25 mins</span>
+                </div>
+              </li>
+              <li>
+                <div class="stop-circle stop-intermediate"></div>
+                <div class="stop-details">
+                  <span class="stop-name">Liberty Avenue</span>
+                  <span class="stop-time">20 km | 32 mins</span>
+                </div>
+              </li>
+              <li>
+                <div class="stop-circle stop-intermediate"></div>
+                <div class="stop-details">
+                  <span class="stop-name">University Avenue</span>
+                  <span class="stop-time">24 km | 38 mins</span>
+                </div>
+              </li>
+              <li>
+                <div class="stop-circle"></div>
+                <div class="stop-details">
+                  <span class="stop-name">Airport</span>
+                  <span class="stop-time">28.5 km | 45 mins</span>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+        <div class="route-footer">
+          <a href="tracking.html" class="btn btn-primary">Track This Route</a>
+        </div>
+      </div>
+
+      <!-- Route 210 -->
+      <div class="card route-card">
+        <div class="route-header">
+          <h2>Route #210 - North Express</h2>
+          <span class="route-status active">Active</span>
+        </div>
+        <div class="route-content">
+          <div class="route-info-grid">
+            <div class="info-item">
+              <label>Buses Operating:</label>
+              <p>BUS-B05, BUS-B08</p>
+            </div>
+            <div class="info-item">
+              <label>Frequency:</label>
+              <p>Every 20 minutes</p>
+            </div>
+            <div class="info-item">
+              <label>Total Distance:</label>
+              <p>35.2 km</p>
+            </div>
+            <div class="info-item">
+              <label>Estimated Time:</label>
+              <p>55 minutes</p>
+            </div>
+          </div>
+
+          <div class="stops-section">
+            <h3>All Stops</h3>
+            <ol class="stops-timeline">
+              <li>
+                <div class="stop-circle"></div>
+                <div class="stop-details">
+                  <span class="stop-name">Main Station</span>
+                  <span class="stop-time">Start Point</span>
+                </div>
+              </li>
+              <li>
+                <div class="stop-circle stop-intermediate"></div>
+                <div class="stop-details">
+                  <span class="stop-name">Hospital Road</span>
+                  <span class="stop-time">9 km | 15 mins</span>
+                </div>
+              </li>
+              <li>
+                <div class="stop-circle stop-intermediate"></div>
+                <div class="stop-details">
+                  <span class="stop-name">North Market</span>
+                  <span class="stop-time">18 km | 30 mins</span>
+                </div>
+              </li>
+              <li>
+                <div class="stop-circle stop-intermediate"></div>
+                <div class="stop-details">
+                  <span class="stop-name">College Campus</span>
+                  <span class="stop-time">27 km | 42 mins</span>
+                </div>
+              </li>
+              <li>
+                <div class="stop-circle"></div>
+                <div class="stop-details">
+                  <span class="stop-name">North Terminal</span>
+                  <span class="stop-time">35.2 km | 55 mins</span>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+        <div class="route-footer">
+          <a href="tracking.html" class="btn btn-primary">Track This Route</a>
+        </div>
+      </div>
+
+      <!-- Route 315 -->
+      <div class="card route-card">
+        <div class="route-header">
+          <h2>Route #315 - East Loop</h2>
+          <span class="route-status active">Active</span>
+        </div>
+        <div class="route-content">
+          <div class="route-info-grid">
+            <div class="info-item">
+              <label>Buses Operating:</label>
+              <p>BUS-C02, BUS-C07, BUS-C09</p>
+            </div>
+            <div class="info-item">
+              <label>Frequency:</label>
+              <p>Every 10 minutes</p>
+            </div>
+            <div class="info-item">
+              <label>Total Distance:</label>
+              <p>22 km</p>
+            </div>
+            <div class="info-item">
+              <label>Estimated Time:</label>
+              <p>35 minutes</p>
+            </div>
+          </div>
+
+          <div class="stops-section">
+            <h3>All Stops</h3>
+            <ol class="stops-timeline">
+              <li>
+                <div class="stop-circle"></div>
+                <div class="stop-details">
+                  <span class="stop-name">East Plaza</span>
+                  <span class="stop-time">Start Point</span>
+                </div>
+              </li>
+              <li>
+                <div class="stop-circle stop-intermediate"></div>
+                <div class="stop-details">
+                  <span class="stop-name">Shopping Mall</span>
+                  <span class="stop-time">5 km | 8 mins</span>
+                </div>
+              </li>
+              <li>
+                <div class="stop-circle stop-intermediate"></div>
+                <div class="stop-details">
+                  <span class="stop-name">Business Park</span>
+                  <span class="stop-time">12 km | 18 mins</span>
+                </div>
+              </li>
+              <li>
+                <div class="stop-circle stop-intermediate"></div>
+                <div class="stop-details">
+                  <span class="stop-name">Tech Zone</span>
+                  <span class="stop-time">17 km | 26 mins</span>
+                </div>
+              </li>
+              <li>
+                <div class="stop-circle"></div>
+                <div class="stop-details">
+                  <span class="stop-name">East Terminal</span>
+                  <span class="stop-time">22 km | 35 mins</span>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+        <div class="route-footer">
+          <a href="tracking.html" class="btn btn-primary">Track This Route</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>About</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Follow</h4>
+        <ul>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Bus Tracking System. All rights reserved. | Routes</p>
+    </div>
+  </footer>
+
+  <script>
+    function filterRoutes() {
+      alert('Route filter feature - connects to backend API');
+    }
+  </script>
+</body>
+</html>

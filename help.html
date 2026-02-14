@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Help & Support</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header/Navigation -->
+  <header class="header">
+    <div class="header-content">
+      <h1 class="logo">🚌 Bus Tracker</h1>
+      <nav class="navbar">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="tracking.html">Track Bus</a></li>
+          <li><a href="routes.html">Routes</a></li>
+          <li><a href="help.html" class="active">Help</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Help Header -->
+    <section class="help-header">
+      <div class="card">
+        <h2>Help & Support</h2>
+        <p>Find answers to common questions about Bus Tracker</p>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <div class="card">
+        <h2>Frequently Asked Questions</h2>
+        
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <h3>How do I track my bus?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Simply go to the "Track Bus" page and select your route number or bus number. The system will display real-time location information, estimated arrival time, and upcoming stops.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <h3>How often is the location updated?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Bus locations are updated every 10-15 seconds to provide you with the most accurate real-time information. The frequency may vary depending on network conditions.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <h3>How accurate are the ETA estimates?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Our ETA calculations are based on real-time GPS data, current traffic conditions, and historical route data. Typically, ETAs are accurate within 2-5 minutes. Actual arrival times may vary due to unexpected traffic or road conditions.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <h3>Can I set notifications for my bus?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Yes! You can enable notifications to receive alerts when your bus is approaching, has arrived, or if there are any service disruptions. Notifications can be managed in your account settings.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <h3>Is my location data safe?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Your privacy is important to us. We use industry-standard encryption to protect your data. Your location is only used to show you bus tracking information and is never shared with third parties without your consent.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <h3>What should I do if my bus is delayed?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>If your bus is delayed, you'll receive an automatic notification. You can check the "Alerts & Notifications" section to see the reason for the delay and updated ETA. An alternative route may also be suggested if available.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <h3>How do I report a problem with a bus?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>You can report issues using the "Contact Us" link at the bottom of any page. Fill out the issue report with details about the bus number, time, and nature of the problem. Our support team will respond within 24 hours.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <h3>Is Bus Tracker available offline?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Currently, Bus Tracker requires an internet connection to provide real-time updates. However, you can download a route schedule for offline reference. We're working on an offline mode feature.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Support Section -->
+    <section class="support-section">
+      <div class="card">
+        <h2>Contact Support</h2>
+        <div class="support-grid">
+          <div class="support-item">
+            <h3>📧 Email</h3>
+            <p>support@bustracker.com</p>
+            <small>Response time: 24 hours</small>
+          </div>
+
+          <div class="support-item">
+            <h3>📞 Phone</h3>
+            <p>+1 (800) BUS-TRACK</p>
+            <small>Available 24/7</small>
+          </div>
+
+          <div class="support-item">
+            <h3>💬 Live Chat</h3>
+            <p>Available on mobile app</p>
+            <small>Mon-Fri 9:00 AM - 9:00 PM</small>
+          </div>
+
+          <div class="support-item">
+            <h3>📱 Twitter</h3>
+            <p>@BusTrackerApp</p>
+            <small>Follow for updates</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Documentation Section -->
+    <section class="docs-section">
+      <div class="card">
+        <h2>Documentation</h2>
+        <div class="docs-links">
+          <a href="#" class="doc-link">
+            <span class="doc-icon">📖</span>
+            <span>User Guide</span>
+          </a>
+          <a href="#" class="doc-link">
+            <span class="doc-icon">⚙️</span>
+            <span>Settings & Preferences</span>
+          </a>
+          <a href="#" class="doc-link">
+            <span class="doc-icon">🔒</span>
+            <span>Privacy Policy</span>
+          </a>
+          <a href="#" class="doc-link">
+            <span class="doc-icon">⚖️</span>
+            <span>Terms of Service</span>
+          </a>
+          <a href="#" class="doc-link">
+            <span class="doc-icon">🐞</span>
+            <span>Bug Reports</span>
+          </a>
+          <a href="#" class="doc-link">
+            <span class="doc-icon">💡</span>
+            <span>Feature Requests</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feedback Section -->
+    <section class="feedback-section">
+      <div class="card">
+        <h2>Send Feedback</h2>
+        <form class="feedback-form">
+          <div class="form-group">
+            <label for="feedbackName">Your Name:</label>
+            <input type="text" id="feedbackName" placeholder="Enter your name" class="input-field" />
+          </div>
+
+          <div class="form-group">
+            <label for="feedbackEmail">Email Address:</label>
+            <input type="email" id="feedbackEmail" placeholder="Enter your email" class="input-field" />
+          </div>
+
+          <div class="form-group">
+            <label for="feedbackType">Feedback Type:</label>
+            <select id="feedbackType" class="input-field">
+              <option value="">Select type</option>
+              <option value="bug">Bug Report</option>
+              <option value="feature">Feature Request</option>
+              <option value="improvement">Improvement Suggestion</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="feedbackMessage">Message:</label>
+            <textarea id="feedbackMessage" placeholder="Please describe your feedback..." class="input-field" rows="5"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit Feedback</button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>About</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Follow</h4>
+        <ul>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Bus Tracking System. All rights reserved. | Support</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleFAQ(element) {
+      const faqItem = element.parentElement;
+      const answer = faqItem.querySelector('.faq-answer');
+      const icon = element.querySelector('.faq-icon');
+      
+      faqItem.classList.toggle('active');
+      
+      if (faqItem.classList.contains('active')) {
+        answer.style.display = 'block';
+        icon.textContent = '−';
+      } else {
+        answer.style.display = 'none';
+        icon.textContent = '+';
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Track Bus - Live Tracking</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header/Navigation -->
+  <header class="header">
+    <div class="header-content">
+      <h1 class="logo">🚌 Bus Tracker</h1>
+      <nav class="navbar">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="tracking.html" class="active">Track Bus</a></li>
+          <li><a href="routes.html">Routes</a></li>
+          <li><a href="help.html">Help</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Demo Info Section -->
+    <section class="search-section">
+      <div class="card">
+        <h2>Bus Tracking Demo</h2>
+        <p class="demo-info">Showing live demo data for Route #105</p>
+        <button class="btn btn-primary" onclick="switchBus()">Switch Demo Bus (A10 ↔ A12)</button>
+      </div>
+    </section>
+
+    <!-- Live Tracking Section -->
+    <section class="tracking-section">
+      <div class="card">
+        <h2>Live Bus Location</h2>
+        
+        <!-- Map/Location Display -->
+        <div class="map-container">
+          <div class="map-placeholder">
+            <p>📍 Current Location Demo</p>
+            <small id="locationDisplay">Near University Avenue & Main Street</small>
+          </div>
+        </div>
+
+        <!-- Bus Status Grid -->
+        <div class="status-grid">
+          <!-- Bus Information -->
+          <div class="status-item">
+            <label>Bus Number:</label>
+            <p id="busNumberDisplay" class="status-value">BUS-A10</p>
+          </div>
+
+          <!-- Current Location -->
+          <div class="status-item">
+            <label>Current Location:</label>
+            <p id="busLocation" class="status-value">Main Street</p>
+          </div>
+
+          <!-- Driver Information -->
+          <div class="status-item">
+            <label>Driver Name:</label>
+            <p id="driverName" class="status-value">Ahmed Khan</p>
+          </div>
+
+          <!-- Status -->
+          <div class="status-item">
+            <label>Bus Status:</label>
+            <p id="busStatus" class="status-value status-badge status-on-time">On Time</p>
+          </div>
+
+          <!-- ETA -->
+          <div class="status-item">
+            <label>Estimated Arrival:</label>
+            <p id="eta" class="status-value">2:45 PM</p>
+          </div>
+
+          <!-- Distance -->
+          <div class="status-item">
+            <label>Distance Remaining:</label>
+            <p id="distance" class="status-value">3.5 km</p>
+          </div>
+
+          <!-- Speed -->
+          <div class="status-item">
+            <label>Current Speed:</label>
+            <p id="speed" class="status-value">45 km/h</p>
+          </div>
+
+          <!-- Occupancy -->
+          <div class="status-item">
+            <label>Passenger Capacity:</label>
+            <p id="capacity" class="status-value">32 / 50</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Alert/Notification Section -->
+    <section class="alert-section">
+      <div class="card">
+        <h2>Alerts & Notifications</h2>
+        <div class="alerts-container">
+          <div class="alert alert-info">
+            <span>ℹ️</span>
+            <p>Bus A10 is currently on Route #105, running on schedule</p>
+          </div>
+          <div class="alert alert-success" style="display:block;">
+            <span>✓</span>
+            <p>Next stop: City Center (in 5 minutes)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>About</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Follow</h4>
+        <ul>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Bus Tracking System. All rights reserved. | Live Tracking</p>
+    </div>
+  </footer>
+
+  <script>
+    // Demo data for different buses
+    const demoData = {
+      'BUS-A10': {
+        busNumber: 'BUS-A10',
+        location: 'Main Street',
+        fullLocation: 'Near University Avenue & Main Street',
+        driver: 'Ahmed Khan',
+        status: 'On Time',
+        eta: '2:45 PM',
+        distance: '3.5 km',
+        speed: '45 km/h',
+        capacity: '32 / 50',
+        nextStop: 'City Center'
+      },
+      'BUS-A12': {
+        busNumber: 'BUS-A12',
+        location: 'Liberty Avenue',
+        fullLocation: 'Near Liberty Avenue & Hospital Road',
+        driver: 'Muhammad Ali',
+        status: 'On Time',
+        eta: '3:10 PM',
+        distance: '5.2 km',
+        speed: '40 km/h',
+        capacity: '28 / 50',
+        nextStop: 'North Terminal'
+      }
+    };
+
+    let currentBus = 'BUS-A10';
+
+    function updateBusData(busNumber) {
+      const data = demoData[busNumber];
+      document.getElementById('busNumberDisplay').textContent = data.busNumber;
+      document.getElementById('busLocation').textContent = data.location;
+      document.getElementById('driverName').textContent = data.driver;
+      document.getElementById('eta').textContent = data.eta;
+      document.getElementById('distance').textContent = data.distance;
+      document.getElementById('speed').textContent = data.speed;
+      document.getElementById('capacity').textContent = data.capacity;
+      document.getElementById('locationDisplay').textContent = data.fullLocation;
+      currentBus = busNumber;
+    }
+
+    function switchBus() {
+      const newBus = currentBus === 'BUS-A10' ? 'BUS-A12' : 'BUS-A10';
+      updateBusData(newBus);
+      alert('Switched to ' + newBus);
+    }
+
+    // Initialize with first bus on page load
+    window.addEventListener('load', function() {
+      updateBusData('BUS-A10');
+    });
+  </script>
+</body>
+</html>

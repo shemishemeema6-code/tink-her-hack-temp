@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bus Buddy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- Logo -->
+        <img src="logo.png" alt="Bus Buddy Logo" class="logo">
+
+        <!-- Tagline -->
+        <h1 class="tagline">Never Miss Your Stop</h1>
+
+        <!-- Highlighted Track Now -->
+        <div class="track-now">
+            Track Now
+        </div>
+
+        <!-- Footer -->
+        <p class="footer-text">Your Bus Buddy</p>
+
+    </div>
+
+</body>
+</html>

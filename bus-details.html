@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bus Details - Bus Buddy</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .bus-details-container {
+      min-height: 100vh;
+      background: var(--light-bg);
+      padding: 2rem;
+    }
+
+    .bus-details-card {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .bus-details-header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .bus-details-header h1 {
+      font-size: 2.5rem;
+      margin: 0;
+    }
+
+    .bus-details-header p {
+      margin: 0.5rem 0 0;
+      opacity: 0.9;
+      font-size: 1rem;
+    }
+
+    .bus-details-content {
+      padding: 2rem;
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .journey-confidence-card {
+      background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+      border: 2px solid #ffb74d;
+      border-radius: 12px;
+      padding: 1.5rem;
+      border-left: 6px solid #ff9800;
+    }
+
+    .confidence-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #e65100;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .confidence-item {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .confidence-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .confidence-icon {
+      font-size: 1.5rem;
+    }
+
+    .confidence-text {
+      display: grid;
+      gap: 0.25rem;
+    }
+
+    .confidence-label {
+      font-size: 0.8rem;
+      color: #999;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .confidence-value {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark-text);
+    }
+
+    .route-summary {
+      background: var(--light-bg);
+      padding: 1.5rem;
+      border-radius: 8px;
+    }
+
+    .route-summary h3 {
+      color: var(--primary-color);
+      font-size: 1rem;
+      margin: 0 0 1rem;
+    }
+
+    .route-leg {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      align-items: center;
+    }
+
+    .venue {
+      text-align: center;
+      min-width: 120px;
+    }
+
+    .venue-name {
+      font-weight: 600;
+      color: var(--dark-text);
+      font-size: 0.95rem;
+    }
+
+    .venue-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .route-arrow {
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .time-distance {
+      text-align: right;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .prep-section {
+      background: #e3f2fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 1rem;
+      border-radius: 6px;
+    }
+
+    .prep-title {
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    .prep-item {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      color: #0d47a1;
+    }
+
+    .prep-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .button-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .btn-secondary {
+      padding: 0.75rem 1.5rem;
+      background: var(--light-bg);
+      color: var(--dark-text);
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    .bus-vehicle-details {
+      background: var(--light-bg);
+      padding: 1.5rem;
+      border-radius: 8px;
+    }
+
+    .vehicle-info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .vehicle-info {
+      text-align: center;
+    }
+
+    .vehicle-info-label {
+      font-size: 0.75rem;
+      color: #999;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .vehicle-info-value {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+  </style>
+</head>
+<body>
+  <div class="bus-details-container">
+    <div class="bus-details-card">
+      <!-- Header -->
+      <div class="bus-details-header">
+        <h1 id="busNameDisplay">🚌 BUS-A10</h1>
+        <p>Route #105 - City Express</p>
+      </div>
+
+      <!-- Content -->
+      <div class="bus-details-content">
+        <!-- Journey Confidence Card -->
+        <div class="journey-confidence-card">
+          <div class="confidence-title">
+            ✨ Journey Confidence Card
+          </div>
+
+          <div class="confidence-item">
+            <div class="confidence-icon">💰</div>
+            <div class="confidence-text">
+              <div class="confidence-label">Fare to Keep Ready</div>
+              <div class="confidence-value">₹30</div>
+            </div>
+          </div>
+
+          <div class="confidence-item">
+            <div class="confidence-icon">🚪</div>
+            <div class="confidence-text">
+              <div class="confidence-label">Boarding Door</div>
+              <div class="confidence-value">Front Door (Green Line)</div>
+            </div>
+          </div>
+
+          <div class="confidence-item">
+            <div class="confidence-icon">💺</div>
+            <div class="confidence-text">
+              <div class="confidence-label">Expected Seats</div>
+              <div class="confidence-value">Good Availability (32/50)</div>
+            </div>
+          </div>
+
+          <div class="confidence-item">
+            <div class="confidence-icon">⏱️</div>
+            <div class="confidence-text">
+              <div class="confidence-label">Journey Duration</div>
+              <div class="confidence-value">Get down after 42 minutes</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Route Summary -->
+        <div class="route-summary">
+          <h3>Your Route</h3>
+          <div class="route-leg">
+            <div class="venue">
+              <div class="venue-icon">📍</div>
+              <div class="venue-name">From</div>
+              <small>Now</small>
+            </div>
+            <div class="route-arrow">→</div>
+            <div class="time-distance">Boarding now</div>
+          </div>
+          <div class="route-leg">
+            <div class="venue">
+              <div class="venue-icon">🎯</div>
+              <div class="venue-name">To</div>
+              <small>Destination</small>
+            </div>
+            <div class="route-arrow">✓</div>
+            <div class="time-distance">42 min away</div>
+          </div>
+        </div>
+
+        <!-- Preparation Tips -->
+        <div class="prep-section">
+          <div class="prep-title">📝 Preparation Checklist</div>
+          <div class="prep-item">✓ Have exact change or card ready (₹30)</div>
+          <div class="prep-item">✓ Look for Green Line door (safer boarding)</div>
+          <div class="prep-item">✓ Phone on vibrate & location enabled</div>
+          <div class="prep-item">✓ Download offline stop list (just in case)</div>
+        </div>
+
+        <!-- Vehicle Details -->
+        <div class="bus-vehicle-details">
+          <h3 style="color: var(--primary-color); margin: 0 0 1rem;">Bus Details</h3>
+          <div class="vehicle-info-grid">
+            <div class="vehicle-info">
+              <div class="vehicle-info-label">Capacity</div>
+              <div class="vehicle-info-value">50</div>
+            </div>
+            <div class="vehicle-info">
+              <div class="vehicle-info-label">Available Seats</div>
+              <div class="vehicle-info-value">32</div>
+            </div>
+            <div class="vehicle-info">
+              <div class="vehicle-info-label">AC Status</div>
+              <div class="vehicle-info-value">Yes ❄️</div>
+            </div>
+            <div class="vehicle-info">
+              <div class="vehicle-info-label">WiFi</div>
+              <div class="vehicle-info-value">Yes 📡</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="button-group">
+          <button class="btn-secondary" onclick="window.history.back()">Back</button>
+          <button class="btn btn-primary" onclick="startJourney()">Start Journey</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function startJourney() {
+      alert('Great! Ready to board? Let\'s set up your journey alerts now.');
+      window.location.href = 'start-journey.html';
+    }
+
+    // Load bus data
+    const bus = JSON.parse(localStorage.getItem('selectedBus') || '{}');
+    document.getElementById('busNameDisplay').textContent = `🚌 ${bus.name || 'BUS-A10'}`;
+  </script>
+</body>
+</html>

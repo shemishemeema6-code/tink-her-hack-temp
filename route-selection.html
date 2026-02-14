@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Route Selection - Bus Buddy</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .route-setup-container {
+      min-height: 100vh;
+      background: var(--light-bg);
+      padding: 2rem;
+    }
+
+    .route-setup-card {
+      max-width: 500px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .route-header {
+      margin-bottom: 2rem;
+    }
+
+    .route-header h2 {
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .route-header p {
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    .route-input-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .route-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--dark-text);
+    }
+
+    .landmark-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .landmark-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
+    }
+
+    .landmark-suggestions {
+      margin-top: 0.75rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .suggestion-btn {
+      padding: 0.65rem 1rem;
+      background: var(--light-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      text-align: left;
+    }
+
+    .suggestion-btn:hover {
+      background: #e3f2fd;
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    .voice-input-btn {
+      padding: 0.6rem;
+      background: #f0f0f0;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      margin-left: 0.75rem;
+    }
+
+    .voice-input-btn:hover {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    .fare-estimate {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #e3f2fd, #f1f8e9);
+      border-radius: 8px;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .fare-label {
+      font-size: 0.85rem;
+      color: #666;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .fare-amount {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin: 0.5rem 0;
+    }
+
+    .fare-description {
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .swap-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem;
+      background: white;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 1rem auto;
+      transition: all 0.3s ease;
+      font-size: 1.25rem;
+    }
+
+    .swap-btn:hover {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    .action-buttons {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .input-with-voice {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .input-with-voice input {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="route-setup-container">
+    <div class="route-setup-card">
+      <div class="route-header">
+        <h2>Plan Your Journey</h2>
+        <p>Select landmarks for accurate guidance</p>
+      </div>
+
+      <!-- From Location -->
+      <div class="route-input-group">
+        <label class="route-label">📍 From</label>
+        <div class="input-with-voice">
+          <input 
+            type="text" 
+            id="fromLocation" 
+            class="landmark-input" 
+            placeholder="E.g., Near temple, Opposite mall..."
+            onchange="updateFareEstimate()"
+          />
+          <button class="voice-input-btn" title="Voice input">🎤</button>
+        </div>
+        <div class="landmark-suggestions">
+          <button class="suggestion-btn" onclick="setFromLocation('Near Railway Station')">🚉 Near Railway Station</button>
+          <button class="suggestion-btn" onclick="setFromLocation('Opposite Shopping Mall')">🛍️ Opposite Shopping Mall</button>
+          <button class="suggestion-btn" onclick="setFromLocation('City Center Bus Stand')">🏢 City Center Bus Stand</button>
+        </div>
+      </div>
+
+      <!-- Swap Button -->
+      <button class="swap-btn" title="Swap locations">⇅</button>
+
+      <!-- To Location -->
+      <div class="route-input-group">
+        <label class="route-label">🎯 To</label>
+        <div class="input-with-voice">
+          <input 
+            type="text" 
+            id="toLocation" 
+            class="landmark-input" 
+            placeholder="E.g., Near temple, Near hospital..."
+            onchange="updateFareEstimate()"
+          />
+          <button class="voice-input-btn" title="Voice input">🎤</button>
+        </div>
+        <div class="landmark-suggestions">
+          <button class="suggestion-btn" onclick="setToLocation('Near School Gate')">🏫 Near School Gate</button>
+          <button class="suggestion-btn" onclick="setToLocation('Airport Terminal')">✈️ Airport Terminal</button>
+          <button class="suggestion-btn" onclick="setToLocation('Hospital Road')">🏥 Hospital Road</button>
+        </div>
+      </div>
+
+      <!-- Fare Estimate -->
+      <div class="fare-estimate" id="fareEstimate" style="display: none;">
+        <div class="fare-label">Estimated Fare</div>
+        <div class="fare-amount" id="fareAmount">₹25 - ₹35</div>
+        <div class="fare-description">Keep this amount ready • Distance: ~8 km</div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button class="btn btn-primary" onclick="searchBuses()">Find Available Buses</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function setFromLocation(location) {
+      document.getElementById('fromLocation').value = location;
+      updateFareEstimate();
+    }
+
+    function setToLocation(location) {
+      document.getElementById('toLocation').value = location;
+      updateFareEstimate();
+    }
+
+    function updateFareEstimate() {
+      const from = document.getElementById('fromLocation').value;
+      const to = document.getElementById('toLocation').value;
+      
+      if (from && to) {
+        document.getElementById('fareEstimate').style.display = 'block';
+        // Simulate different fares based on locations
+        const fares = [
+          { min: 20, max: 30 },
+          { min: 25, max: 35 },
+          { min: 30, max: 40 },
+          { min: 35, max: 50 }
+        ];
+        const fare = fares[Math.floor(Math.random() * fares.length)];
+        document.getElementById('fareAmount').textContent = `₹${fare.min} - ₹${fare.max}`;
+      }
+    }
+
+    function searchBuses() {
+      const from = document.getElementById('fromLocation').value;
+      const to = document.getElementById('toLocation').value;
+      
+      if (!from || !to) {
+        alert('Please select both From and To locations');
+        return;
+      }
+      
+      localStorage.setItem('selectedRoute', JSON.stringify({ from, to }));
+      window.location.href = 'find-bus.html';
+    }
+  </script>
+</body>
+</html>

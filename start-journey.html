@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Start Journey - Bus Buddy</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .start-journey-container {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .start-journey-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 500px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .journey-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .journey-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .journey-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .journey-subtitle {
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    .alerts-setup {
+      background: var(--light-bg);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+    }
+
+    .alerts-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .alert-option {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: white;
+      border-radius: 6px;
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .alert-option:hover {
+      border-color: var(--primary-color);
+      background: #e3f2fd;
+    }
+
+    .alert-option:last-child {
+      margin-bottom: 0;
+    }
+
+    .toggle-switch {
+      width: 50px;
+      height: 28px;
+      background: #ccc;
+      border-radius: 14px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .toggle-switch.active {
+      background: var(--primary-color);
+    }
+
+    .toggle-circle {
+      width: 24px;
+      height: 24px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: left 0.3s ease;
+    }
+
+    .toggle-switch.active .toggle-circle {
+      left: 24px;
+    }
+
+    .alert-content {
+      flex: 1;
+    }
+
+    .alert-name {
+      font-weight: 600;
+      color: var(--dark-text);
+      margin-bottom: 0.25rem;
+    }
+
+    .alert-description {
+      font-size: 0.8rem;
+      color: #999;
+    }
+
+    .reassurance-box {
+      background: #e8f5e9;
+      border-left: 4px solid var(--secondary-color);
+      padding: 1rem;
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+    }
+
+    .reassurance-text {
+      color: #2e7d32;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .reassurance-text strong {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .button-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .btn-secondary {
+      padding: 0.75rem 1.5rem;
+      background: var(--light-bg);
+      color: var(--dark-text);
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+  </style>
+</head>
+<body>
+  <div class="start-journey-container">
+    <div class="start-journey-card">
+      <!-- Header -->
+      <div class="journey-header">
+        <span class="journey-icon">🚀</span>
+        <h1 class="journey-title">Let's Go!</h1>
+        <p class="journey-subtitle">Set up your journey alerts</p>
+      </div>
+
+      <!-- Reassurance Message -->
+      <div class="reassurance-box">
+        <div class="reassurance-text">
+          <strong>✓ We'll alert you before your stop.</strong>
+          Choose how you want to receive notifications below.
+        </div>
+      </div>
+
+      <!-- Alert Options -->
+      <div class="alerts-setup">
+        <div class="alerts-title">🔔 Notification Preferences</div>
+
+        <!-- Vibration -->
+        <div class="alert-option" onclick="toggleAlert('vibration')">
+          <div class="toggle-switch active" id="vibrationToggle">
+            <div class="toggle-circle"></div>
+          </div>
+          <div class="alert-content">
+            <div class="alert-name">🔴 Vibration Alerts</div>
+            <div class="alert-description">Gentle vibration when approaching your stop</div>
+          </div>
+        </div>
+
+        <!-- Voice Alerts -->
+        <div class="alert-option" onclick="toggleAlert('voice')">
+          <div class="toggle-switch active" id="voiceToggle">
+            <div class="toggle-circle"></div>
+          </div>
+          <div class="alert-content">
+            <div class="alert-name">🔊 Voice Announcements</div>
+            <div class="alert-description">AI voice will announce your stop</div>
+          </div>
+        </div>
+
+        <!-- Sound Alert -->
+        <div class="alert-option" onclick="toggleAlert('sound')">
+          <div class="toggle-switch active" id="soundToggle">
+            <div class="toggle-circle"></div>
+          </div>
+          <div class="alert-content">
+            <div class="alert-name">🔔 Sound Alert</div>
+            <div class="alert-description">Beep sound when you're 2 stops away</div>
+          </div>
+        </div>
+
+        <!-- Screen Alert -->
+        <div class="alert-option" onclick="toggleAlert('screen')">
+          <div class="toggle-switch active" id="screenToggle">
+            <div class="toggle-circle"></div>
+          </div>
+          <div class="alert-content">
+            <div class="alert-name">📱 Screen Alert</div>
+            <div class="alert-description">Red popup on your phone screen</div>
+          </div>
+        </div>
+
+        <!-- SMS Alert -->
+        <div class="alert-option" onclick="toggleAlert('sms')">
+          <div class="toggle-switch" id="smsToggle">
+            <div class="toggle-circle"></div>
+          </div>
+          <div class="alert-content">
+            <div class="alert-name">💬 SMS Backup</div>
+            <div class="alert-description">Text message 1 minute before stop</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="button-group">
+        <button class="btn-secondary" onclick="window.history.back()">Back</button>
+        <button class="btn btn-primary" onclick="startJourney()">Start Journey Now</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleAlert(type) {
+      const toggle = document.getElementById(type + 'Toggle');
+      toggle.classList.toggle('active');
+      
+      // Save preference
+      const prefs = JSON.parse(localStorage.getItem('alertPrefs') || '{}');
+      prefs[type] = !prefs[type];
+      localStorage.setItem('alertPrefs', JSON.stringify(prefs));
+    }
+
+    function startJourney() {
+      alert('Journey started! 🎉 We\'re tracking your bus in real-time. Hold tight!');
+      window.location.href = 'live-journey.html';
+    }
+  </script>
+</body>
+</html>

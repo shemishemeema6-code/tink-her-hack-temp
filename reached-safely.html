@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reached Safely - Bus Buddy</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .reached-container {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .reached-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 500px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      text-align: center;
+    }
+
+    .success-animation {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+      animation: bounce 1s ease-in-out;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .success-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--secondary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .success-subtitle {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .journey-summary {
+      background: var(--light-bg);
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: left;
+      margin-bottom: 2rem;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .summary-item:last-child {
+      border-bottom: none;
+    }
+
+    .summary-label {
+      color: #999;
+      font-size: 0.9rem;
+    }
+
+    .summary-value {
+      font-weight: 600;
+      color: var(--dark-text);
+    }
+
+    /* Rating Section */
+    .rating-section {
+      background: #fff3e0;
+      border: 2px solid #ffb74d;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+    }
+
+    .rating-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #e65100;
+      margin-bottom: 1rem;
+    }
+
+    .rating-question {
+      margin-bottom: 1rem;
+    }
+
+    .rating-q-text {
+      font-weight: 600;
+      color: var(--dark-text);
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    .rating-stars {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .star {
+      font-size: 2rem;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      filter: grayscale(100%);
+    }
+
+    .star:hover,
+    .star.active {
+      transform: scale(1.2);
+      filter: grayscale(0%);
+    }
+
+    .feedback-box {
+      display: none;
+      margin-top: 1rem;
+    }
+
+    .feedback-box.active {
+      display: block;
+    }
+
+    .feedback-textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid #ffb74d;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      resize: vertical;
+    }
+
+    .feedback-textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
+    }
+
+    /* Safety Feedback */
+    .safety-feedback {
+      background: #e8f5e9;
+      border: 2px solid #4caf50;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+    }
+
+    .safety-q-title {
+      font-weight: 700;
+      color: #2e7d32;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .safety-option {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      background: white;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .safety-option:hover {
+      border-color: var(--secondary-color);
+      background: #e8f5e9;
+    }
+
+    .safety-option input[type="radio"] {
+      cursor: pointer;
+      accent-color: var(--secondary-color);
+    }
+
+    .safety-option:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Favorite Button */
+    .favorite-section {
+      margin-bottom: 1.5rem;
+      padding: 1rem 0;
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .favorite-btn {
+      width: 100%;
+      padding: 0.75rem;
+      background: white;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .favorite-btn:hover {
+      border-color: #ff6b6b;
+      background: #ffe0e0;
+    }
+
+    .favorite-btn.favorited {
+      background: #ff6b6b;
+      color: white;
+      border-color: #ff6b6b;
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .btn-secondary {
+      padding: 0.75rem 1.5rem;
+      background: var(--light-bg);
+      color: var(--dark-text);
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary-color);
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: #999;
+      margin-top: 0.25rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="reached-container">
+    <div class="reached-card">
+      <!-- Success Message -->
+      <div class="success-animation">🎉</div>
+      <h1 class="success-title">Reached Safely!</h1>
+      <p class="success-subtitle">Thank you for using Bus Buddy</p>
+
+      <!-- Journey Stats -->
+      <div class="stats-bar">
+        <div class="stat-card">
+          <div class="stat-value">42 min</div>
+          <div class="stat-label">Journey Time</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">12.5 km</div>
+          <div class="stat-label">Distance</div>
+        </div>
+      </div>
+
+      <!-- Journey Summary -->
+      <div class="journey-summary">
+        <div class="summary-item">
+          <span class="summary-label">Bus Number</span>
+          <span class="summary-value">BUS-A10</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Route</span>
+          <span class="summary-value">Route #105</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Date & Time</span>
+          <span class="summary-value" id="journeyTime">Today 2:45 PM</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Status</span>
+          <span class="summary-value" style="color: var(--secondary-color);">✓ On Time</span>
+        </div>
+      </div>
+
+      <!-- Rating Section -->
+      <div class="rating-section">
+        <div class="rating-title">⭐ Rate Your Journey</div>
+        
+        <div class="rating-question">
+          <div class="rating-q-text">How would you rate your bus experience?</div>
+          <div class="rating-stars">
+            <span class="star" onclick="setRating(1)">⭐</span>
+            <span class="star" onclick="setRating(2)">⭐</span>
+            <span class="star" onclick="setRating(3)">⭐</span>
+            <span class="star" onclick="setRating(4)">⭐</span>
+            <span class="star" onclick="setRating(5)">⭐</span>
+          </div>
+        </div>
+
+        <div class="feedback-box" id="feedbackBox">
+          <textarea class="feedback-textarea" id="feedbackText" placeholder="Tell us what made this journey great (optional)..."></textarea>
+        </div>
+      </div>
+
+      <!-- Safety & Comfort Feedback -->
+      <div class="safety-feedback">
+        <div class="safety-q-title">🛡️ Was this bus safe & comfortable?</div>
+        
+        <label class="safety-option">
+          <input type="radio" name="safety" value="very-safe" />
+          <span>✓ Very safe & comfortable</span>
+        </label>
+        
+        <label class="safety-option">
+          <input type="radio" name="safety" value="safe" />
+          <span>✓ Safe & good</span>
+        </label>
+        
+        <label class="safety-option">
+          <input type="radio" name="safety" value="okay" />
+          <span>~ Okay, but could improve</span>
+        </label>
+        
+        <label class="safety-option">
+          <input type="radio" name="safety" value="unsafe" />
+          <span>✗ Had concerns</span>
+        </label>
+      </div>
+
+      <!-- Favorite Route -->
+      <div class="favorite-section">
+        <button class="favorite-btn" id="favoriteBtn" onclick="toggleFavorite()">
+          ❤️ Save This Route as Favorite
+        </button>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button class="btn btn-primary" onclick="submitFeedback()">Submit & Continue</button>
+        <button class="btn-secondary" onclick="skipFeedback()">Skip for Now</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let selectedRating = 0;
+    let isFavorited = false;
+
+    function setRating(rating) {
+      selectedRating = rating;
+      const stars = document.querySelectorAll('.star');
+      stars.forEach((star, index) => {
+        if (index < rating) {
+          star.classList.add('active');
+        } else {
+          star.classList.remove('active');
+        }
+      });
+      showFeedbackBox(rating);
+    }
+
+    function showFeedbackBox(rating) {
+      const feedbackBox = document.getElementById('feedbackBox');
+      if (rating >= 4) {
+        feedbackBox.classList.add('active');
+      } else {
+        feedbackBox.classList.remove('active');
+      }
+    }
+
+    function toggleFavorite() {
+      isFavorited = !isFavorited;
+      const btn = document.getElementById('favoriteBtn');
+      if (isFavorited) {
+        btn.classList.add('favorited');
+        btn.textContent = '❤️ Added to Favorites';
+      } else {
+        btn.classList.remove('favorited');
+        btn.textContent = '❤️ Save This Route as Favorite';
+      }
+    }
+
+    function submitFeedback() {
+      const safety = document.querySelector('input[name="safety"]:checked')?.value || 'not-selected';
+      const feedback = document.getElementById('feedbackText').value;
+      
+      const journeyData = {
+        rating: selectedRating,
+        safety: safety,
+        feedback: feedback,
+        favorited: isFavorited,
+        timestamp: new Date().toISOString()
+      };
+      
+      console.log('Journey Feedback:', journeyData);
+      alert('Thank you for your feedback! Your input helps us improve. 🙏\n\nRating: ' + selectedRating + '/5\nSafety: ' + safety);
+      window.location.href = 'splash.html';
+    }
+
+    function skipFeedback() {
+      alert('No problem! See you on your next journey! 👋');
+      window.location.href = 'splash.html';
+    }
+
+    // Set current time
+    const now = new Date();
+    const timeStr = now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) + ' ' + now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    document.getElementById('journeyTime').textContent = timeStr;
+  </script>
+</body>
+</html>

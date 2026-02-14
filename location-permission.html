@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Location Permission - Bus Buddy</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .permission-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      padding: 2rem;
+    }
+
+    .permission-card {
+      background: white;
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      max-width: 450px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .permission-icon {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .permission-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--dark-text);
+      margin-bottom: 0.5rem;
+    }
+
+    .permission-subtitle {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .permission-text {
+      background: #f0f4ff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      line-height: 1.6;
+      color: var(--dark-text);
+      margin: 2rem 0;
+      font-size: 0.95rem;
+    }
+
+    .permission-text em {
+      color: var(--primary-color);
+      font-weight: 600;
+      font-style: normal;
+    }
+
+    .checkbox-group {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background: #f9f9f9;
+      border-radius: 8px;
+      text-align: left;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .checkbox-input {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: var(--primary-color);
+    }
+
+    .beginner-mode-info {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #e3f2fd;
+      border-left: 4px solid var(--primary-color);
+      border-radius: 4px;
+      text-align: left;
+      font-size: 0.85rem;
+      color: #0d47a1;
+    }
+
+    .beginner-mode-info.active {
+      display: block;
+      animation: slideInUp 0.3s ease-out;
+    }
+
+    .button-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .btn-secondary {
+      padding: 0.75rem 1.5rem;
+      background: var(--light-bg);
+      color: var(--dark-text);
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="permission-container">
+    <div class="permission-card">
+      <div class="permission-icon">📍</div>
+      <h1 class="permission-title">Enable Location</h1>
+      <p class="permission-subtitle">Keep your journey safe</p>
+      
+      <div class="permission-text">
+        We'll guide you <em>safely till you get down</em> — no confusion. Your location helps us show the exact bus position and alert you before your stop.
+      </div>
+
+      <div class="checkbox-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="beginnerMode" class="checkbox-input" onchange="toggleBeginnerMode()" />
+          <span>✨ First time in this city?</span>
+        </label>
+        <div id="beginnerModeInfo" class="beginner-mode-info">
+          <strong>Beginner Mode activated!</strong>
+          <p>We'll provide extra help with landmarks, simple language, and step-by-step guidance. Perfect for exploring a new city.</p>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn-secondary" onclick="skipLocation()">Not Now</button>
+        <button class="btn btn-primary" onclick="allowLocation()">Allow Location</button>
+      </div>
+
+      <p style="font-size: 0.75rem; color: #999; margin-top: 1.5rem;">
+        Your location data is encrypted and never shared. Learn more in privacy policy.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function toggleBeginnerMode() {
+      const checkbox = document.getElementById('beginnerMode');
+      const info = document.getElementById('beginnerModeInfo');
+      if (checkbox.checked) {
+        info.classList.add('active');
+        localStorage.setItem('beginnerMode', 'true');
+      } else {
+        info.classList.remove('active');
+        localStorage.setItem('beginnerMode', 'false');
+      }
+    }
+
+    function allowLocation() {
+      alert('Location enabled! Ready to find your bus?');
+      window.location.href = 'route-selection.html';
+    }
+
+    function skipLocation() {
+      alert('No problem! You can enable location anytime.');
+      window.location.href = 'route-selection.html';
+    }
+  </script>
+</body>
+</html>

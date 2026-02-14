@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bus Status - Bus Buddy</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .bus-status-container {
+      min-height: 100vh;
+      background: var(--light-bg);
+      padding: 2rem;
+    }
+
+    .bus-status-card {
+      max-width: 700px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .status-map {
+      background: linear-gradient(135deg, #e3f2fd, #f1f8e9);
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .status-map-content {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .bus-icon-large {
+      font-size: 3rem;
+      animation: busMove 3s ease-in-out infinite;
+    }
+
+    @keyframes busMove {
+      0%, 100% { transform: translateX(-10px); }
+      50% { transform: translateX(10px); }
+    }
+
+    .current-status {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    .current-info {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .status-content {
+      padding: 2rem;
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .status-box {
+      background: var(--light-bg);
+      padding: 1rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .status-box-label {
+      font-size: 0.75rem;
+      color: #999;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .status-box-value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .safety-intelligence {
+      background: #e8f5e9;
+      border-left: 6px solid var(--secondary-color);
+      padding: 1.5rem;
+      border-radius: 8px;
+    }
+
+    .intelligence-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #2e7d32;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .safety-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.9rem;
+      color: #2e7d32;
+    }
+
+    .safety-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .community-feedback {
+      background: #e3f2fd;
+      border-left: 6px solid var(--primary-color);
+      padding: 1.5rem;
+      border-radius: 8px;
+    }
+
+    .feedback-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #0d47a1;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .feedback-item {
+      background: white;
+      padding: 0.75rem;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      color: #0d47a1;
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-start;
+    }
+
+    .feedback-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .feedback-emoji {
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .crowd-prediction {
+      background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+      border-left: 6px solid var(--warning-color);
+      padding: 1.5rem;
+      border-radius: 8px;
+    }
+
+    .prediction-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #e65100;
+      margin-bottom: 1rem;
+    }
+
+    .crowd-bar {
+      width: 100%;
+      height: 12px;
+      background: #ddd;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+    }
+
+    .crowd-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #4caf50, #ff9800, #f44336);
+      width: 45%;
+      border-radius: 6px;
+    }
+
+    .crowd-label {
+      font-size: 0.85rem;
+      color: #e65100;
+      text-align: center;
+    }
+
+    .action-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .btn-secondary {
+      padding: 0.75rem 1.5rem;
+      background: var(--light-bg);
+      color: var(--dark-text);
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    @media (max-width: 600px) {
+      .status-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .action-buttons {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bus-status-container">
+    <div class="bus-status-card">
+      <!-- Map Section -->
+      <div class="status-map">
+        <div class="status-map-content">
+          <div class="bus-icon-large">🚌</div>
+          <div class="current-status" id="statusDisplay">Approaching Your Stop</div>
+          <div class="current-info">📍 Main Street | 2 km away</div>
+        </div>
+      </div>
+
+      <!-- Status Content -->
+      <div class="status-content">
+        <!-- Key Metrics -->
+        <div class="status-grid">
+          <div class="status-box">
+            <div class="status-box-label">Distance</div>
+            <div class="status-box-value">2.3 km</div>
+          </div>
+          <div class="status-box">
+            <div class="status-box-label">ETA</div>
+            <div class="status-box-value">7 mins</div>
+          </div>
+          <div class="status-box">
+            <div class="status-box-label">Speed</div>
+            <div class="status-box-value">42 km/h</div>
+          </div>
+          <div class="status-box">
+            <div class="status-box-label">Crowd Level</div>
+            <div class="status-box-value">45%</div>
+          </div>
+        </div>
+
+        <!-- Safety Intelligence -->
+        <div class="safety-intelligence">
+          <div class="intelligence-title">
+            🛡️ Safety Intelligence
+          </div>
+          <div class="safety-item">✓ Women-friendly (24/7)</div>
+          <div class="safety-item">✓ Well-lit route from 6 PM onwards</div>
+          <div class="safety-item">✓ CCTV cameras onboard</div>
+          <div class="safety-item">✓ Emergency button at every door</div>
+          <div class="safety-item">✓ Female conductor present</div>
+        </div>
+
+        <!-- Community Feedback -->
+        <div class="community-feedback">
+          <div class="feedback-title">
+            💬 Community Says
+          </div>
+          <div class="feedback-item">
+            <span class="feedback-emoji">👥</span>
+            <span><strong>Crowd Pattern:</strong> Mostly students & office workers</span>
+          </div>
+          <div class="feedback-item">
+            <span class="feedback-emoji">⏱️</span>
+            <span><strong>Punctuality:</strong> Usually on time, 2-3 min early in evenings</span>
+          </div>
+          <div class="feedback-item">
+            <span class="feedback-emoji">🧑</span>
+            <span><strong>Driver Behavior:</strong> Courteous & follows traffic rules</span>
+          </div>
+          <div class="feedback-item">
+            <span class="feedback-emoji">🌟</span>
+            <span><strong>Overall Rating:</strong> 4.7/5 based on 284 community reviews</span>
+          </div>
+        </div>
+
+        <!-- Crowd Prediction -->
+        <div class="crowd-prediction">
+          <div class="prediction-title">📊 Real-time Crowd Prediction</div>
+          <div class="crowd-bar">
+            <div class="crowd-bar-fill"></div>
+          </div>
+          <div class="crowd-label">Medium Crowd (45% capacity)</div>
+          <p style="margin-top: 0.75rem; font-size: 0.85rem; color: #e65100;">
+            Usually quiet around this time. Peak hours: 8-9 AM & 5-7 PM
+          </p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button class="btn-secondary" onclick="window.history.back()">Back</button>
+          <button class="btn btn-primary" onclick="continueJourney()">Continue</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function continueJourney() {
+      window.location.href = 'start-journey.html';
+    }
+  </script>
+</body>
+</html>

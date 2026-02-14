@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Find Bus - Bus Buddy</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .find-bus-container {
+      min-height: 100vh;
+      background: var(--light-bg);
+      padding: 2rem;
+    }
+
+    .find-bus-header {
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      text-align: center;
+    }
+
+    .find-bus-header h2 {
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .buses-list {
+      max-width: 800px;
+      margin: 0 auto;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .bus-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .bus-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary-color);
+    }
+
+    .bus-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 1rem;
+    }
+
+    .bus-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--dark-text);
+    }
+
+    .bus-badges {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .badge {
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .badge.on-time {
+      background: #c8e6c9;
+      color: #2e7d32;
+    }
+
+    .badge.delayed {
+      background: #ffe0b2;
+      color: #e65100;
+    }
+
+    .badge.low-crowd {
+      background: #c8e6c9;
+      color: #2e7d32;
+    }
+
+    .badge.medium-crowd {
+      background: #fff9c4;
+      color: #f57f17;
+    }
+
+    .badge.high-crowd {
+      background: #ffccbc;
+      color: #d84315;
+    }
+
+    .bus-info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .info-box {
+      background: var(--light-bg);
+      padding: 0.75rem;
+      border-radius: 6px;
+    }
+
+    .info-label {
+      font-size: 0.75rem;
+      color: #999;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .info-value {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-top: 0.25rem;
+    }
+
+    .bus-stats {
+      display: flex;
+      gap: 1rem;
+      justify-content: space-between;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .stat {
+      flex: 1;
+      text-align: center;
+    }
+
+    .stat-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: #999;
+    }
+
+    .stat-value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--dark-text);
+    }
+
+    .safety-note {
+      background: #e8f5e9;
+      border-left: 4px solid var(--secondary-color);
+      padding: 0.75rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      color: #2e7d32;
+      margin-top: 1rem;
+    }
+
+    .crowdsource-feedback {
+      background: #f0f4ff;
+      border-left: 4px solid var(--primary-color);
+      padding: 0.75rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      color: #0d47a1;
+      margin-top: 0.75rem;
+    }
+
+    @media (max-width: 600px) {
+      .bus-badges {
+        justify-content: flex-start;
+      }
+
+      .bus-info-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="find-bus-container">
+    <div class="find-bus-header">
+      <h2>Available Buses</h2>
+      <p style="color: #666;">Choose your preferred bus for this journey</p>
+    </div>
+
+    <div class="buses-list" id="busesList"></div>
+  </div>
+
+  <script>
+    const buses = [
+      {
+        id: 1,
+        name: 'BUS-A10',
+        time: '2:45 PM',
+        distance: '2.3 km away',
+        crowd: 'low',
+        safety: '⭐⭐⭐⭐⭐',
+        status: 'on-time',
+        crowdLevel: 'Low crowd',
+        safetyNote: '✓ Women-friendly',
+        feedback: '📊 Mostly students on this route'
+      },
+      {
+        id: 2,
+        name: 'BUS-A12',
+        time: '3:15 PM',
+        distance: '5.1 km away',
+        crowd: 'medium',
+        safety: '⭐⭐⭐⭐',
+        status: 'on-time',
+        crowdLevel: 'Medium crowd',
+        safetyNote: '✓ Well-lit route',
+        feedback: '📊 Office crowd in evenings'
+      },
+      {
+        id: 3,
+        name: 'BUS-A15',
+        time: '3:45 PM',
+        distance: '7.8 km away',
+        crowd: 'high',
+        safety: '⭐⭐⭐⭐⭐',
+        status: 'delayed',
+        crowdLevel: 'High crowd',
+        safetyNote: '✓ CCTV cameras onboard',
+        feedback: '📊 Peak hour rush'
+      },
+      {
+        id: 4,
+        name: 'BUS-B05',
+        time: '2:30 PM',
+        distance: '1.9 km away',
+        crowd: 'low',
+        safety: '⭐⭐⭐⭐⭐',
+        status: 'on-time',
+        crowdLevel: 'Low crowd',
+        safetyNote: '✓ Recently inspected',
+        feedback: '📊 Quiet route in early hours'
+      }
+    ];
+
+    function getCrowdBadge(crowd) {
+      const badges = {
+        low: '<span class="badge low-crowd">🟢 Low crowd</span>',
+        medium: '<span class="badge medium-crowd">🟡 Medium crowd</span>',
+        high: '<span class="badge high-crowd">🔴 High crowd</span>'
+      };
+      return badges[crowd] || '';
+    }
+
+    function getStatusBadge(status) {
+      return status === 'on-time' 
+        ? '<span class="badge on-time">✓ On Time</span>'
+        : '<span class="badge delayed">⚠️ 3 min late</span>';
+    }
+
+    function renderBuses() {
+      const busesList = document.getElementById('busesList');
+      busesList.innerHTML = buses.map(bus => `
+        <div class="bus-card" onclick="selectBus(${bus.id}, '${bus.name}')">
+          <div class="bus-header">
+            <div class="bus-title">🚌 ${bus.name}</div>
+            <div class="bus-badges">
+              ${getCrowdBadge(bus.crowd)}
+              ${getStatusBadge(bus.status)}
+            </div>
+          </div>
+
+          <div class="bus-info-grid">
+            <div class="info-box">
+              <div class="info-label">Arrival Time</div>
+              <div class="info-value">${bus.time}</div>
+            </div>
+            <div class="info-box">
+              <div class="info-label">Distance</div>
+              <div class="info-value">${bus.distance}</div>
+            </div>
+            <div class="info-box">
+              <div class="info-label">Safety Rating</div>
+              <div class="info-value">${bus.safety}</div>
+            </div>
+            <div class="info-box">
+              <div class="info-label">Crowd Level</div>
+              <div class="info-value">${bus.crowdLevel}</div>
+            </div>
+          </div>
+
+          <div class="safety-note">${bus.safetyNote}</div>
+          <div class="crowdsource-feedback">${bus.feedback}</div>
+
+          <div class="bus-stats" style="margin-top: 1rem;">
+            <div class="stat">
+              <div class="stat-icon">💺</div>
+              <div class="stat-label">Seats</div>
+              <div class="stat-value">32/50</div>
+            </div>
+            <div class="stat">
+              <div class="stat-icon">🌡️</div>
+              <div class="stat-label">Comfort</div>
+              <div class="stat-value">Good</div>
+            </div>
+            <div class="stat">
+              <div class="stat-icon">🎵</div>
+              <div class="stat-label">WiFi</div>
+              <div class="stat-value">Yes</div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function selectBus(busId, busName) {
+      localStorage.setItem('selectedBus', JSON.stringify({ id: busId, name: busName }));
+      window.location.href = 'bus-details.html';
+    }
+
+    renderBuses();
+  </script>
+</body>
+</html>

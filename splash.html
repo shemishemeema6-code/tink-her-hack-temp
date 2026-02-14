@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bus Buddy - Never Miss Your Stop</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .splash-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      text-align: center;
+    }
+
+    .splash-content {
+      padding: 2rem;
+    }
+
+    .splash-logo {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+      animation: busMove 3s ease-in-out infinite;
+    }
+
+    @keyframes busMove {
+      0%, 100% { transform: translateX(-10px); }
+      50% { transform: translateX(10px); }
+    }
+
+    .splash-title {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .splash-tagline {
+      font-size: 1.25rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+
+    .splash-line {
+      width: 80px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.5);
+      margin: 2rem auto;
+      border-radius: 2px;
+    }
+
+    .splash-description {
+      font-size: 1rem;
+      opacity: 0.85;
+      max-width: 400px;
+      margin: 0 auto 3rem;
+      line-height: 1.6;
+    }
+
+    .start-btn {
+      padding: 1rem 3rem;
+      background: white;
+      color: var(--primary-color);
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .start-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .splash-footer {
+      position: absolute;
+      bottom: 2rem;
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <div class="splash-container">
+    <div class="splash-content">
+      <div class="splash-logo">🚌</div>
+      <h1 class="splash-title">Bus Buddy</h1>
+      <div class="splash-line"></div>
+      <p class="splash-tagline">Never Miss Your Stop</p>
+      <p class="splash-description">
+        Your AI-powered bus companion for safe, confident city commutes. Real-time tracking, crowd intelligence, and safety-first design.
+      </p>
+      <button class="start-btn" onclick="window.location.href='location-permission.html'">
+        Get Started
+      </button>
+    </div>
+    <div class="splash-footer">
+      Demo Version 1.0 | Your bus buddy awaits ✨
+    </div>
+  </div>
+</body>
+</html>
