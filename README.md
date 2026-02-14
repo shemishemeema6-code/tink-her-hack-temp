@@ -118,18 +118,29 @@ In a real-world implementation, GPS devices installed in buses would send live l
 
 #### Screenshots (Add at least 3)
 
-![<img width="917" height="625" alt="image" src="https://github.com/user-attachments/assets/46d85834-b33c-4614-9531-22d39cb6f7f1" />
-](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
+![Screenshot 1](<img width="477" height="642" alt="image" src="https://github.com/user-attachments/assets/90134990-9a38-439f-b144-66f63ac34837" />
+)
+*opening page*
 
-![<img width="926" height="537" alt="image" src="https://github.com/user-attachments/assets/ff538d78-a77f-44b3-ab8a-a4cd969aa3ac" />
-](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
+![Screenshot 2](<img width="479" height="642" alt="image" src="https://github.com/user-attachments/assets/e36f8c96-62f3-4c95-9075-6b5934be2efa" />
+)
+*trying to know where the person is travelling to and from*
 
-![<img width="963" height="543" alt="image" src="https://github.com/user-attachments/assets/7a1776e2-f00c-4f63-b97d-51509aa5631f" />
-](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+![Screenshot 3](<img width="481" height="642" alt="image" src="https://github.com/user-attachments/assets/f470cc08-cfa1-4ad2-9212-383c2b3342aa" />
+)
+*showing the available buses to that specific location*
 
+![Screenshot 4](<img width="482" height="638" alt="image" src="https://github.com/user-attachments/assets/7a4e7998-b798-41aa-a6b8-f26d09482759" />
+)
+*help the person to know more details about the bus*
+
+![Screenshot 5](<img width="459" height="637" alt="image" src="https://github.com/user-attachments/assets/a26d87cb-2e97-41c9-82bd-bf58b845ce2e" />
+)
+*shows live updates of there journey*
+
+![Screenshot 6](<img width="480" height="646" alt="image" src="https://github.com/user-attachments/assets/2ce08dbc-86a8-4826-a684-5bf2b91427e1" />
+)
+*reached the location update*
 
 ---
 
